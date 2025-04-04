@@ -7,8 +7,6 @@ import {
   Soup,
   Bandage,
   Heater,
-  GalleryVerticalEnd,
-  ChevronsUpDown,
   ChartBarStacked,
 } from "lucide-react";
 
@@ -23,12 +21,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Switch } from "./ui/switch";
-import { stat } from "fs";
 import { ModeToggle } from "./mode-toggle";
 
 // Menu items.
@@ -115,7 +109,7 @@ export function AppSidebar() {
             <ChartBarStacked className="size-4" />
           </div>
           <div className="flex flex-col gap-0.5 leading-none">
-            <span className="font-semibold">Plásticos Camen</span>
+            <span className="font-semibold">InstaData</span>
             <span className="">v{data.versions}</span>
             
           </div>
