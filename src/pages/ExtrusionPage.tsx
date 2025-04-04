@@ -39,7 +39,7 @@ const ExtrusionPage = () => {
   }, [dateRange]);
 
   return (
-    <div className="space-y-4 space-x-4 md:grid grid-cols-2 ">
+    <div className="gap-4 grid grid-cols-1 md:grid-cols-2 ">
       {loading ? (
         <>
           <Skeleton className="h-7 w-[200px]" />
