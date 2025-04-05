@@ -17,36 +17,36 @@ const SkeletonVerticalBarChar: React.FC<Props> = ({ data }) => {
     <Card >
       <CardHeader>
         <CardTitle>
-          <Skeleton className="h-4 w-[70px] md:w-[100px]" />
+          <Skeleton className="h-4 w-[40%] " />
         </CardTitle>
         <CardDescription>
-          <Skeleton className="h-4 w-[200px] md:w-[300px]" />
+          <Skeleton className="h-4 w-[80%] " />
         </CardDescription>
       </CardHeader>
-      <CardContent className={`grid grid-cols-${data} w-full `}>
+      <CardContent className={`flex  w-full aspect-w-4 aspect-[4/3]`}>
         {Array.from({ length: data }).map((_, i) => (
           <div
             key={i}
-            className=" space-y-2 mt-auto  mx-3 sm:mx-4 md:mx-6 lg:mx-8"
+            className="h-[100%] flex-grow min-w-0 space-y-2 mx-[10px]"
           >
             <Skeleton
-              className={`flex-col `}
+              className={``}
               style={{
                 height: `${
-                  Math.floor(Math.random() * (300 - 100 + 1)) + 100
-                }px`,
+                  Math.floor(Math.random() * (100 - 10 + 1)) + 10
+                }%`,
               }}
             />
-            <Skeleton className="w-[20px] md:w-[80px]  h-3 mx-auto " />
+            <Skeleton className="w-[40%]   h-3 mx-auto " />
           </div>
         ))}
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          <Skeleton className="h-4 w-[70px] md:w-[100px]" />
+      <CardFooter className="flex-col items-start gap-2 text-sm w-full">
+        <div className="flex gap-2 font-medium leading-none w-full">
+          <Skeleton className="h-4 w-[40%] " />
         </div>
-        <div className="leading-none text-muted-foreground">
-          <Skeleton className="h-4 w-[200px] md:w-[300px]" />
+        <div className="leading-none text-muted-foreground w-full">
+          <Skeleton className="h-4 w-[80%] " />
         </div>
       </CardFooter>
     </Card>

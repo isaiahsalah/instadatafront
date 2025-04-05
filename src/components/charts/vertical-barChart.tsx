@@ -62,7 +62,7 @@ const VerticalBarChart: React.FC<Props> = ({ data, title, detail,Footertitle,Foo
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value.toString().slice(0, 3)}
             />
             <ChartTooltip
               cursor={false}

@@ -17,17 +17,14 @@ const ExtrusionPage = () => {
   useEffect(() => {
     setLoading(true);
     updateData();
-    
-    const interval = setInterval(() => {
-      const today = new Date()
-      if(dateRange.to && dateRange.to>=today){
-        updateData();
-        console.log("actualizando datos", dateRange.to)
-      }
-      
-      
 
-    }, 5*10* 1000); // 5 minutos
+    const interval = setInterval(() => {
+      const today = new Date();
+      if (dateRange.to && dateRange.to >= today) {
+        updateData();
+        console.log("actualizando datos", dateRange.to);
+      }
+    }, 5 * 10 * 1000); // 5 minutos
 
     return () => clearInterval(interval);
   }, [dateRange]);
@@ -35,6 +32,7 @@ const ExtrusionPage = () => {
   const updateData = () => {
     postExtrusionAvancedOrder({ dateRange: dateRange })
       .then((res) => {
+        console.log(res);
         const restDay = res
           .filter((d: { turno: string }) => d.turno === "Dia")
           .map(({ turno, ...rest }) => {
@@ -58,30 +56,36 @@ const ExtrusionPage = () => {
     <div className="gap-4 grid grid-cols-1 md:grid-cols-2 ">
       {loading ? (
         <>
-        <div className="space-y-4 space-x-4  ">
-          <Skeleton className="h-7 w-[200px]" />
-          <SkeletonTable rows={4} colums={6} />
-          <SkeletonVerticalBarChar data={4} /></div>
           <div className="space-y-4 space-x-4  ">
-          <Skeleton className="h-7 w-[200px]" />
-          <SkeletonTable rows={4} colums={6} />
-          <SkeletonVerticalBarChar data={4} /></div>
+            <Skeleton className="h-7 w-[200px]" />
+            <SkeletonTable rows={4} colums={6} />
+            <SkeletonVerticalBarChar data={4} />
+          </div>
+          <div className="space-y-4 space-x-4  ">
+            <Skeleton className="h-7 w-[200px]" />
+            <SkeletonTable rows={4} colums={6} />
+            <SkeletonVerticalBarChar data={4} />
+          </div>
         </>
       ) : (
         <>
+                    <SkeletonVerticalBarChar data={4} />
+
           <div className="space-y-4 space-x-4  ">
             <TypographyH2 data="Turno Diurno" />
             <DataTable
               data={dataDay}
               detail="Resumen detallado del rendimiento por línea de producción"
             />
-            <VerticalBarChart
-              data={dataDay}
-              title="Gráfico de Barras: Cumplimiento de Objetivos - Diurno"
-              detail="Rendimiento de las líneas de producción en el turno diurno, mostrando acumulado, objetivo y calidad."
-              Footertitle=""
-              Footerdetail=""
-            />
+            {
+              <VerticalBarChart
+                data={dataDay}
+                title="Gráfico de Barras: Cumplimiento de Objetivos - Diurno"
+                detail="Rendimiento de las líneas de producción en el turno diurno, mostrando acumulado, objetivo y calidad."
+                Footertitle=""
+                Footerdetail=""
+              />
+            }
           </div>
           <div className="space-y-4 space-x-4  ">
             <TypographyH2 data="Turno Nocturno" />
@@ -89,14 +93,15 @@ const ExtrusionPage = () => {
               data={dataNigth}
               detail="Resumen detallado del rendimiento por línea de producción"
             />
-
-            <VerticalBarChart
-              data={dataNigth}
-              title="Gráfico de Barras: Cumplimiento de Objetivos - Nocturno"
-              detail="Rendimiento de las líneas de producción en el turno nocturno, mostrando acumulado, objetivo y calidad."
-              Footertitle=""
-              Footerdetail=""
-            />
+            {
+              <VerticalBarChart
+                data={dataNigth}
+                title="Gráfico de Barras: Cumplimiento de Objetivos - Nocturno"
+                detail="Rendimiento de las líneas de producción en el turno nocturno, mostrando acumulado, objetivo y calidad."
+                Footertitle=""
+                Footerdetail=""
+              />
+            }
           </div>
         </>
       )}
