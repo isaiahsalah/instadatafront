@@ -27,7 +27,7 @@ const SkeletonVerticalBarChar: React.FC<Props> = ({ data }) => {
         {Array.from({ length: data }).map((_, i) => (
           <div
             key={i}
-            className="h-[100%] flex-grow min-w-0 space-y-2 mx-[10px]"
+            className="flex flex-col justify-end flex-grow min-w-0 space-y-2 mx-[10px]"
           >
             <Skeleton
               className={``}

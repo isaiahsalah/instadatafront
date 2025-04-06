@@ -22,7 +22,10 @@ const SkeletonTable: React.FC<Props> = ({ rows, colums }) => {
   return (
     <Table>
       <TableCaption>
-        <Skeleton className="h-5  w-[170px] md:w-[300px]" />
+        <Skeleton 
+        className="h-5 " 
+        style={{ width: `${randomNumber(70, 100)}%` }} 
+        />
       </TableCaption>
 
       <TableHeader>
@@ -31,7 +34,7 @@ const SkeletonTable: React.FC<Props> = ({ rows, colums }) => {
             <TableHead key={i}>
               <Skeleton
                 className="h-5   "
-                style={{ width: `${randomNumber(40, 50)}%` }}
+                style={{ width: `${randomNumber(40, 100)}%` }}
               />
             </TableHead>
           ))}
@@ -44,7 +47,7 @@ const SkeletonTable: React.FC<Props> = ({ rows, colums }) => {
               <TableCell key={i}>
                 <Skeleton
                   className={`h-5 `}
-                  style={{ width: `${randomNumber(30, 100)}%` }}
+                  style={{ width: `${randomNumber(80, 100)}%` }}
                 />
               </TableCell>
             ))}

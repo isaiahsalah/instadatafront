@@ -25,18 +25,19 @@ const chartConfig = {
 } satisfies ChartConfig
 
 interface Props {
-  data: never[];
+  colums: {name:string, data:number}[] | undefined;
   title: string;
   detail: string;
   Footertitle: string;
   Footerdetail: string;
 }
 
-const VerticalBarChart: React.FC<Props> = ({ data, title, detail,Footertitle,Footerdetail })=> {
-    const formattedData = data.map((row: {linea: string, cumplimiento: string}) => ({
-      linea: row.linea,
-      cumplimiento: row.cumplimiento,
-    }));
+const VerticalBarChart: React.FC<Props> = ({ colums, title, detail,Footertitle,Footerdetail })=> {
+    
+  if(!colums){
+    return 
+  }
+ 
   
  
 
@@ -50,7 +51,7 @@ const VerticalBarChart: React.FC<Props> = ({ data, title, detail,Footertitle,Foo
         <ChartContainer  config={chartConfig}>
           <BarChart
             accessibilityLayer
-            data={formattedData}
+            data={colums}
             margin={{
               top: 20,
             }}
@@ -58,7 +59,7 @@ const VerticalBarChart: React.FC<Props> = ({ data, title, detail,Footertitle,Foo
           >
             <CartesianGrid vertical={false}  />
             <XAxis
-              dataKey="linea"
+              dataKey="name"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -68,7 +69,7 @@ const VerticalBarChart: React.FC<Props> = ({ data, title, detail,Footertitle,Foo
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Bar dataKey="cumplimiento" fill="var(--color-desktop)" radius={8}>
+            <Bar dataKey="data" fill="var(--color-desktop)" radius={8}>
               <LabelList
                 position="top"
                 offset={12}
