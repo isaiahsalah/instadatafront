@@ -6,7 +6,7 @@ import SkeletonVerticalBarChar from "@/components/skeletons/verticalBarChart.ske
 import { Skeleton } from "@/components/ui/skeleton";
 import { DateRangeContext } from "@/providers/rangeDate-provider";
 import { postExtrusionAvancedOrder } from "@/services/extrusion.api";
-import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionAdvancedOrder";
+import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionType";
 import { barChartFormat } from "@/utils/format";
 import { useContext, useEffect, useState } from "react";
 

@@ -7,10 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionAdvancedOrder";
+import { Corte_pa_po } from "@/types/CorteType";
+import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionType";
+import { Impresion_pa_po } from "@/types/ImpresionType";
 
 interface Props {
-  data: never[] | Extrusion_pa_po_withoutTurno[] | undefined ;
+  data: never[] | Extrusion_pa_po_withoutTurno[] | Corte_pa_po[] | Impresion_pa_po [] | undefined ;
   detail: string;
 }
 
@@ -24,14 +26,14 @@ const DataTable: React.FC<Props> = ({ data, detail }) => {
             <TableHead
               className="text-left capitalize text-sm font-medium text-muted-foreground"
             >
-              No hay datos
+              No hay conexión
             </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         
           <TableRow >
-              <TableCell >No hay datos</TableCell>
+              <TableCell >No hay conexión</TableCell>
           </TableRow>
       </TableBody>
     </Table>

@@ -8,6 +8,7 @@ import {
   TableCaption,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { randomNumber } from "@/lib/utils";
 
 interface Props {
   rows: number;
@@ -15,9 +16,7 @@ interface Props {
 }
 
 const SkeletonTable: React.FC<Props> = ({ rows, colums }) => {
-  const randomNumber = (from: number, to: number) => {
-    return Math.floor(Math.random() * (to - from + 1)) + from;
-  };
+
 
   return (
     <Table>

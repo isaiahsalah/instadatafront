@@ -1,6 +1,6 @@
 import { DateRange } from "react-day-picker";
 import { api } from "./api";
-import { Extrusion_pa_po } from "@/types/EctrusionAdvancedOrder";
+import { Extrusion_pa_po } from "@/types/EctrusionType";
 
 const url= "/extrusion"
 

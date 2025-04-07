@@ -11,3 +11,4 @@ export interface Extrusion_pa_po {
 }
 
 export type Extrusion_pa_po_withoutTurno = Omit<Extrusion_pa_po, 'turno'>; // Excluye 'turno' del tipo
+
