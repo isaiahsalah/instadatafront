@@ -1,15 +1,24 @@
-import { DateRange } from "react-day-picker";
-import { api } from "./api";
-import { Extrusion_pa_po } from "@/types/EctrusionType";
+import {apiClient} from "./api";
 
-const url= "/extrusion"
+const url = "/bolsas";
 
-export const postExtrusionAvancedOrder = async ({dateRange}:{dateRange:DateRange}) => {
-   const {from, to}= dateRange
-    const { data }:{data:Extrusion_pa_po[]} = await api.post(url+"/avancedOrder", {
-        from,
-        to,
-      });
-    //console.log(data)
-    return data;
+export const getExtrusion = async ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+}) => {
+  try {
+    const params = {
+      startDate,
+      endDate,
+    };
+
+    const response = await apiClient.get(url + "/extrusion", {params});
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener extrusion en el front:", error);
+    throw error;
+  }
 };

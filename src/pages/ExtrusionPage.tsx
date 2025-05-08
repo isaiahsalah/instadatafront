@@ -1,114 +1,143 @@
-import VerticalBarChart from "@/components/charts/vertical-barChart";
-import DataTable from "@/components/data-table";
-import TypographyH2 from "@/components/h2-text";
-import SkeletonTable from "@/components/skeletons/table.skeleton";
-import SkeletonVerticalBarChar from "@/components/skeletons/verticalBarChart.skeleton";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DateRangeContext } from "@/providers/rangeDate-provider";
-import { postExtrusionAvancedOrder } from "@/services/extrusion.api";
-import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionType";
-import { barChartFormat } from "@/utils/format";
-import { useContext, useEffect, useState } from "react";
+import DataTable from "@/components/table/DataTable";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {DateRangeContext} from "@/providers/rangeDate-provider";
+import {getExtrusion} from "@/services/extrusion.api";
+import {IExtrusion} from "@/utils/interfaces";
+import {ColumnDef} from "@tanstack/react-table";
+import {useContext, useEffect, useMemo, useState} from "react";
 
 const ExtrusionPage = () => {
-  const [dataDay, setDataDay] = useState<Extrusion_pa_po_withoutTurno[]>();
-  const [dataNigth, setDataNigth] = useState<Extrusion_pa_po_withoutTurno[]>();
-  const [loading, setLoading] = useState(true);
-  const { dateRange } = useContext(DateRangeContext);
+  const {dateRange} = useContext(DateRangeContext);
+  const [extrusionA, setExtrusionA] = useState<IExtrusion[] | null>(null);
+  const [extrusionB, setExtrusionB] = useState<IExtrusion[] | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    updateData();
+    updateView();
 
     const interval = setInterval(() => {
       const today = new Date();
       if (dateRange.to && dateRange.to >= today) {
-        updateData();
+        updateView();
         console.log("actualizando datos", dateRange.to);
       }
-    }, 5 * 10 * 1000); // 5 minutos
+    }, 1 * 10 * 1000); // 1 minutos
 
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateRange]);
 
-  const updateData = () => {
-    postExtrusionAvancedOrder({ dateRange: dateRange })
-      .then((res) => {
-        console.log(res);
-        const restDay:Extrusion_pa_po_withoutTurno[]= res
-          .filter((d: { turno: string }) => d.turno === "Dia")
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .map(({ turno , ...rest }) => {
-            return rest;
-          });
-        const restNigth:Extrusion_pa_po_withoutTurno[] = res
-          .filter((d: { turno: string }) => d.turno === "Noche")
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          .map(({ turno, ...rest }) => rest);
-
-        setDataDay(restDay);
-        setDataNigth(restNigth);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+  const updateView = async () => {
+    const extrusionData: IExtrusion[] = await getExtrusion({
+      startDate: dateRange.from,
+      endDate: dateRange.to,
+    });
+    setExtrusionA(extrusionData.filter((item) => item.group === "A"));
+    setExtrusionB(extrusionData.filter((item) => item.group === "B"));
   };
+
+  // Generar columnas dinámicamente
+  const columns: ColumnDef<IExtrusion>[] = useMemo(() => {
+    if (!extrusionA || !extrusionB) return [];
+    return [
+      {
+        accessorKey: "turn",
+        header: "Turno",
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: "line",
+        header: "Linea",
+        cell: (info) => info.getValue(),
+      },
+      {
+        accessorKey: "monday",
+        header: "Lunes",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "tuesday",
+        header: "Martes",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "wednesday",
+        header: "Miercoles",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "thursday",
+        header: "Jueves",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "friday",
+        header: "Viernes",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "good",
+        header: "Buena",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "bad",
+        header: "Mala",
+        cell: (info) => parseInt(info.getValue() as string, 10),
+      },
+      {
+        accessorKey: "advance",
+        header: "Avance",
+        cell: ({row}) => {
+          const objective = Number(row.original.objective);
+          const good = Number(row.original.good);
+
+          return <>{objective > 0 ? Math.round((good / objective) * 100 * 100) / 100 : 0} %</>;
+        },
+      },
+      {
+        accessorKey: "quality",
+        header: "Calidad",
+        cell: ({row}) => {
+          const bad = Number(row.original.bad);
+          const good = Number(row.original.good);
+
+          return <>{good + bad > 0 ? Math.round((good / (good + bad)) * 100 * 100) / 100 : 0} %</>;
+        },
+      },
+    ];
+  }, [extrusionA || extrusionB]);
 
   return (
     <div className="gap-4 grid grid-cols-1 md:grid-cols-2 ">
-      {loading ? (
-        <>
-          <div className="space-y-4 space-x-4  ">
-            <Skeleton className="h-7 w-[200px]" />
-            <SkeletonTable rows={4} colums={6} />
-            <SkeletonVerticalBarChar data={4} />
-          </div>
-          <div className="space-y-4 space-x-4  ">
-            <Skeleton className="h-7 w-[200px]" />
-            <SkeletonTable rows={4} colums={6} />
-            <SkeletonVerticalBarChar data={4} />
-          </div>
-        </>
-      ) : (
-        <>
-                  
-          <div className="space-y-4 space-x-4  ">
-            <TypographyH2 data="Turno Diurno" />
-            <DataTable
-              data={dataDay}
-              detail="Resumen detallado del rendimiento por línea de producción"
-            />
-            {
-              <VerticalBarChart
-              colums={barChartFormat(dataDay?.map(({ linea,cumplimiento }) => ({ linea,cumplimiento }))) }
-                title="Gráfico de Barras: Cumplimiento de Objetivos - Diurno"
-                detail="Rendimiento de las líneas de producción en el turno diurno, mostrando acumulado, objetivo y calidad."
-                Footertitle=""
-                Footerdetail=""
-              />
-            }
-          </div>
-          <div className="space-y-4 space-x-4  ">
-            <TypographyH2 data="Turno Nocturno" />
-            <DataTable
-              data={dataNigth}
-              detail="Resumen detallado del rendimiento por línea de producción"
-            />
-            {
-              <VerticalBarChart
-                colums={barChartFormat(dataNigth?.map(({ linea,cumplimiento }) => ({ linea,cumplimiento }))) }
-                title="Gráfico de Barras: Cumplimiento de Objetivos - Nocturno"
-                detail="Rendimiento de las líneas de producción en el turno nocturno, mostrando acumulado, objetivo y calidad."
-                Footertitle=""
-                Footerdetail=""
-              />
-            }
-          </div>
-        </>
-      )}
+      <Card className="@container/card col-span-6 lg:col-span-6">
+        <CardHeader>
+          <CardTitle>Grupo A</CardTitle>
+          <CardDescription>Avance de prosucción del grupo A</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            actions={<></>}
+            columns={columns}
+            data={extrusionA}
+            hasPaginated={false}
+            hasOptions={false}
+          />
+        </CardContent>
+      </Card>
+      <Card className="@container/card col-span-6 lg:col-span-6">
+        <CardHeader>
+          <CardTitle>Grupo B</CardTitle>
+          <CardDescription>Avance de prosucción del grupo B</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            actions={<></>}
+            columns={columns}
+            data={extrusionB}
+            hasPaginated={false}
+            hasOptions={false}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 };

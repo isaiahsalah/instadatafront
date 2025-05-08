@@ -7,37 +7,34 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Corte_pa_po } from "@/types/CorteType";
-import { Extrusion_pa_po_withoutTurno } from "@/types/EctrusionType";
-import { Impresion_pa_po } from "@/types/ImpresionType";
+import {Corte_pa_po} from "@/types/CorteType";
+import {Extrusion_pa_po_withoutTurno} from "@/types/EctrusionType";
+import {Impresion_pa_po} from "@/types/ImpresionType";
 
 interface Props {
-  data: never[] | Extrusion_pa_po_withoutTurno[] | Corte_pa_po[] | Impresion_pa_po [] | undefined ;
+  data: never[] | Extrusion_pa_po_withoutTurno[] | Corte_pa_po[] | Impresion_pa_po[] | undefined;
   detail: string;
 }
 
-const DataTable: React.FC<Props> = ({ data, detail }) => {
-  if(!data) {
+const OldDataTable: React.FC<Props> = ({data, detail}) => {
+  if (!data) {
     return (
       <Table>
-      <TableCaption>{detail}</TableCaption>
-      <TableHeader>
-        <TableRow>
-            <TableHead
-              className="text-left capitalize text-sm font-medium text-muted-foreground"
-            >
+        <TableCaption>{detail}</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="text-left capitalize text-sm font-medium text-muted-foreground">
               No hay conexión
             </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        
-          <TableRow >
-              <TableCell >No hay conexión</TableCell>
           </TableRow>
-      </TableBody>
-    </Table>
-    )
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>No hay conexión</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
   }
   const headers = data.length > 0 ? Object.keys(data[0]) : [];
 
@@ -69,4 +66,4 @@ const DataTable: React.FC<Props> = ({ data, detail }) => {
   );
 };
 
-export default DataTable;
+export default OldDataTable;

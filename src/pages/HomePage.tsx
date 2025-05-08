@@ -82,12 +82,12 @@ const HomePage = () => {
             <RadialPieChart
               title={`Linea ${dat.linea}`}
               detail={`Porcentaje de avance con respecto al objetivo de la linea ${dat.linea}`}
-              Footertitle={`${dat.acumulado} / ${dat.objetivo}`}
-              Footerdetail="Avance / Objetivo"
+              Footertitle={`${dat.acumulado} - ${dat.mala}`}
+              Footerdetail={`✔️ Buena - ✖️ Mala`}
               data={dat.acumulado}
               total={dat.objetivo}
-              dataTitle={`${dat.promedio}%`}
-              dataDetail={`Dato porcentual`}
+              dataTitle={`${dat.cumplimiento}%`}
+              dataDetail={`Meta: ${dat.objetivo}`}
             />
           ))}
 
@@ -99,12 +99,12 @@ const HomePage = () => {
             <RadialPieChart
               title={`Linea ${dat.linea}`}
               detail={`Porcentaje de avance con respecto al objetivo de la linea ${dat.linea}`}
-              Footertitle={`${dat.acumulado} / ${dat.objetivo}`}
-              Footerdetail="Avance / Objetivo"
+              Footertitle={`${dat.acumulado} - ${dat.mala}`}
+              Footerdetail={`✔️ Buena - ✖️ Mala`}
               data={dat.acumulado}
               total={dat.objetivo}
-              dataTitle={`${dat.promedio}%`}
-              dataDetail={`Dato porcentual`}
+              dataTitle={`${dat.cumplimiento}%`}
+              dataDetail={`Meta: ${dat.objetivo}`}
             />
           ))}
         </>
