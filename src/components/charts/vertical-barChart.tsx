@@ -1,94 +1,61 @@
+import {Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis} from "recharts";
 
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-
+} from "@/components/ui/chart";
 
 const chartConfig = {
   desktop: {
     label: "Desktop",
     color: "hsl(var(--chart-1))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 interface Props {
-  colums: {name:string, data:number}[] | undefined;
-  title: string;
-  detail: string;
-  Footertitle: string;
-  Footerdetail: string;
+  colums: {name: string; data: number}[] | undefined;
+  unity?: string;
 }
 
-const VerticalBarChart: React.FC<Props> = ({ colums, title, detail,Footertitle,Footerdetail })=> {
-    
-  if(!colums){
-    return 
+const VerticalBarChart: React.FC<Props> = ({colums, unity}) => {
+  if (!colums) {
+    return;
   }
- 
-  
- 
 
   return (
-    <Card  >
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{detail}</CardDescription>
-      </CardHeader>
-      <CardContent >
-        <ChartContainer  config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={colums}
-            margin={{
-              top: 20,
-            }}
-            barGap={2}
-          >
-            <CartesianGrid vertical={false}  />
-            <XAxis
-              dataKey="name"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.toString().slice(0, 3)}
+    <div className="  h-full ">
+      <ChartContainer config={chartConfig} className="  ">
+        <BarChart accessibilityLayer data={colums} barGap={2} className="  ">
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="name"
+            tickLine={false}
+            tickMargin={5}
+            axisLine={false}
+            tickFormatter={(value) => value.toString()}
+          />
+          <YAxis
+            domain={[0, (dataMax: number) => Math.ceil(Math.ceil(dataMax * 1.2) / 10) * 10]} // Limita de 0 al 120% del máximo
+            tickLine={false}
+            axisLine={false}
+            hide
+            tickMargin={5}
+          />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+          <Bar dataKey="data" fill="var(--color-desktop)" radius={5}>
+            <LabelList
+              position="top"
+              offset={10}
+              className="fill-foreground"
+              fontSize={16}
+              formatter={(value: number) => `${value} ${unity ? unity : ""}`} // Agregar el "%" al valor
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="data" fill="var(--color-desktop)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-        {Footertitle}
-        </div>
-        <div className="leading-none text-muted-foreground">
-          {Footerdetail}
-        </div>
-      </CardFooter>
-    </Card>
-  )
-}
-export default VerticalBarChart
+          </Bar>
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+};
+export default VerticalBarChart;

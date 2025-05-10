@@ -1,20 +1,20 @@
-import { SidebarTrigger } from "./ui/sidebar";
-import { Separator } from "@radix-ui/react-separator";
+import {SidebarTrigger} from "./ui/sidebar";
+import {Separator} from "@radix-ui/react-separator";
 import FullScreenButton from "./fullScreen-button";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 import TypographyH4 from "./h4-text";
-import { Button } from "./ui/button";
-import { RefreshCw, RefreshCwOff } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
-import { DateRangeContext } from "@/providers/rangeDate-provider";
-import { DateRange } from "react-day-picker";
+import {Button} from "./ui/button";
+import {RefreshCw, RefreshCwOff} from "lucide-react";
+import {useContext, useEffect, useState} from "react";
+import {DateRangeContext} from "@/providers/rangeDate-provider";
+import {DateRange} from "react-day-picker";
 import RangeDatePicker from "./rangeDate-picker";
-import { toast } from "sonner";
+import {toast} from "sonner";
 
 const Header = () => {
   const location = useLocation();
-  const { dateRange, setRange } = useContext(DateRangeContext);
+  const {dateRange, setRange} = useContext(DateRangeContext);
 
   const currentPath = location.pathname.replace(/^\/|\/$/g, "");
   const [isUpdate, setIsUpdate] = useState(true);
@@ -29,7 +29,9 @@ const Header = () => {
       date?.to?.toDateString() !== dateRange?.to?.toDateString()
     ) {
       setIsUpdate(false);
-    }else{setIsUpdate(true)}
+    } else {
+      setIsUpdate(true);
+    }
   }, [date, dateRange]);
 
   const toggleUpdateDate = () => {
@@ -46,7 +48,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 ">
+    <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 ">
       <SidebarTrigger className="-ml-1" />
       <div className="hidden sm:block">
         <TypographyH4 data={currentPath} />
