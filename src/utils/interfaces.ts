@@ -13,10 +13,18 @@ export type IExtrusion = {
 };
 
 export interface ICorte {
-  turno: string; // "Dia" o "Noche"
-  avance: number; // Valor numérico del acumulado de producción
-  objetivo: number; // Valor numérico del objetivo de producción
-  promedio: number;
+  group: string;
+  turn: string;
+  operator: string;
+  product: string;
+  incentive: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  weight: number;
+  jaba: number;
 }
 
 export interface ITermoformado {
@@ -30,10 +38,14 @@ export interface IEmbultaje {
 }
 
 export interface IImpresion {
-  turno: string; // "Dia" o "Noche"
-  avance: number; // Valor numérico del acumulado de producción
-  objetivo: number; // Valor numérico del objetivo de producción
-  promedio: number; // Promedio entre cumplimiento y calidad
+  turn: string;
+  total: number;
+  objective: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
 }
 
 export interface IMezcla {

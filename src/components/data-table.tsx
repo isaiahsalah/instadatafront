@@ -7,12 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {Corte_pa_po} from "@/types/CorteType";
-import {Extrusion_pa_po_withoutTurno} from "@/types/EctrusionType";
-import {Impresion_pa_po} from "@/types/ImpresionType";
 
 interface Props {
-  data: never[] | Extrusion_pa_po_withoutTurno[] | Corte_pa_po[] | Impresion_pa_po[] | undefined;
+  data: never[] | undefined;
   detail: string;
 }
 

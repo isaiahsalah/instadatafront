@@ -10,7 +10,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -38,6 +38,8 @@ interface Props<T extends IGeneral> {
   columns: ColumnDef<T>[];
   hasOptions?: boolean;
   hasPaginated?: boolean;
+  hasAutoPaginated?: boolean;
+  rowsAmount?: number;
 }
 
 const DataTable = <T extends IGeneral>({
@@ -46,6 +48,8 @@ const DataTable = <T extends IGeneral>({
   columns,
   hasOptions = true,
   hasPaginated = true,
+  hasAutoPaginated = false,
+  rowsAmount,
 }: Props<T>) => {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
@@ -57,8 +61,60 @@ const DataTable = <T extends IGeneral>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: hasPaginated ? 5 : 100,
+    pageSize: rowsAmount ? rowsAmount : hasPaginated || hasAutoPaginated ? 5 : 100,
   });
+  /*
+ const [startIndex, setStartIndex] = useState(0);
+  const visibleRowsCount = rowsAmount ?? 5;
+  useEffect(() => {
+    if (hasAutoPaginated && data && data.length > visibleRowsCount) {
+      const interval = setInterval(() => {
+        setStartIndex((prev) => (prev + 1) % data.length);
+      }, 2000); // cada 2 segundos sube 1 fila
+
+      return () => clearInterval(interval);
+    }
+  }, [data, hasAutoPaginated, visibleRowsCount]);
+
+  // Función para obtener las filas visibles con desplazamiento circular
+  const getVisibleRows = () => {
+    if (!data) return [];
+    const endIndex = (startIndex + visibleRowsCount) % data.length;
+
+    if (endIndex > startIndex) {
+      return data.slice(startIndex, endIndex);
+    } else {
+      // Si el rango se pasa del final, concatena inicio con final
+      return [...data.slice(startIndex), ...data.slice(0, endIndex)];
+    }
+  };
+
+  const visibleData = getVisibleRows();
+
+  const table = useReactTable({
+    data: visibleData,
+    columns,
+    state: {
+      sorting,
+      columnVisibility,
+      rowSelection,
+      columnFilters,
+      pagination: {pageIndex: 0, pageSize: visibleData.length}, // paginación fija para que no corte
+    },
+    filterFns: {}, // Define funciones personalizadas si es necesario
+    getRowId: (_row, i) => i.toString(),
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+  });
+*/
 
   const table = useReactTable({
     data: data ?? [],
@@ -85,10 +141,27 @@ const DataTable = <T extends IGeneral>({
   });
 
   // const headers = data.length > 0 ? Object.keys(data[0]) : [];
+  useEffect(() => {
+    if (hasAutoPaginated) {
+      const interval = setInterval(() => {
+        console.log("Auto paginando...");
+        setPagination((prev) => ({
+          ...prev,
+          pageIndex: prev.pageIndex + 1 >= table.getPageCount() ? 0 : prev.pageIndex + 1,
+        }));
+      }, 10 * 1000);
+      return () => clearInterval(interval);
+    }
+  }, [table]);
 
   if (!data) {
     return (
-      <TableSkeleton colums={5} rows={5} hasOptions={hasOptions} hasPaginated={hasPaginated} />
+      <TableSkeleton
+        colums={5}
+        rows={rowsAmount ? rowsAmount : 5}
+        hasOptions={hasOptions}
+        hasPaginated={hasPaginated}
+      />
     );
   }
   return (

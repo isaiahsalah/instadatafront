@@ -7,6 +7,8 @@ import {ThemeProvider} from "./providers/theme-provider";
 import Header from "./components/app-header";
 import {DateRangeProvider} from "./providers/rangeDate-provider";
 import {Toaster} from "./components/ui/sonner";
+import CortePage from "./pages/CortePage";
+import PrintingPage from "./pages/ImpresionPage";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
                 <main>
                   <Routes>
                     <Route path="/extrusion" element={<ExtrusionPage />} />
+                    <Route path="/corte" element={<CortePage />} />
+                    <Route path="/impresion" element={<PrintingPage />} />
                   </Routes>
                 </main>
               </div>

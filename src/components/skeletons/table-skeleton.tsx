@@ -44,7 +44,7 @@ const TableSkeleton: React.FC<Props> = ({rows, colums, hasOptions, hasPaginated}
                 {Array.from({length: colums}).map((_, i) => (
                   <TableCell key={i}>
                     <Skeleton
-                      className={`h-3 my-2 `}
+                      className={`h-3 my-1 `}
                       style={{width: `${randomNumber(20, 100)}%`}}
                     />
                   </TableCell>
