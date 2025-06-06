@@ -63,58 +63,6 @@ const DataTable = <T extends IGeneral>({
     pageIndex: 0,
     pageSize: rowsAmount ? rowsAmount : hasPaginated || hasAutoPaginated ? 5 : 100,
   });
-  /*
- const [startIndex, setStartIndex] = useState(0);
-  const visibleRowsCount = rowsAmount ?? 5;
-  useEffect(() => {
-    if (hasAutoPaginated && data && data.length > visibleRowsCount) {
-      const interval = setInterval(() => {
-        setStartIndex((prev) => (prev + 1) % data.length);
-      }, 2000); // cada 2 segundos sube 1 fila
-
-      return () => clearInterval(interval);
-    }
-  }, [data, hasAutoPaginated, visibleRowsCount]);
-
-  // Función para obtener las filas visibles con desplazamiento circular
-  const getVisibleRows = () => {
-    if (!data) return [];
-    const endIndex = (startIndex + visibleRowsCount) % data.length;
-
-    if (endIndex > startIndex) {
-      return data.slice(startIndex, endIndex);
-    } else {
-      // Si el rango se pasa del final, concatena inicio con final
-      return [...data.slice(startIndex), ...data.slice(0, endIndex)];
-    }
-  };
-
-  const visibleData = getVisibleRows();
-
-  const table = useReactTable({
-    data: visibleData,
-    columns,
-    state: {
-      sorting,
-      columnVisibility,
-      rowSelection,
-      columnFilters,
-      pagination: {pageIndex: 0, pageSize: visibleData.length}, // paginación fija para que no corte
-    },
-    filterFns: {}, // Define funciones personalizadas si es necesario
-    getRowId: (_row, i) => i.toString(),
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-  });
-*/
 
   const table = useReactTable({
     data: data ?? [],
@@ -176,7 +124,7 @@ const DataTable = <T extends IGeneral>({
                 <Button variant="outline" size="sm">
                   <ColumnsIcon />
                   <span className="ml-2 hidden lg:inline">Personalizar Columnas</span>
-                  <ChevronDownIcon className="ml-1" />
+                  <ChevronDownIcon className="ml-0" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" onClick={(event) => event.stopPropagation()}>
@@ -212,7 +160,7 @@ const DataTable = <T extends IGeneral>({
                   return (
                     <TableHead
                       key={header.id}
-                      className="text-left capitalize text-sm font-medium text-muted-foreground"
+                      className="text-left capitalize text-sm font-medium text-muted-foreground h-6"
                     >
                       {!header.column.columnDef.header
                         ? null
@@ -229,7 +177,7 @@ const DataTable = <T extends IGeneral>({
                 <TableRow key={i} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell, j) => {
                     return (
-                      <TableCell key={j} className=" py-1.5">
+                      <TableCell key={j} className=" py-1 ">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </TableCell>
                     );

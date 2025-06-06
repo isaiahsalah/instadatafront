@@ -37,6 +37,7 @@ export const getCorte = async ({
     };
 
     const response = await apiClient.get(url + "/corte", {params});
+    console.log("📍📍", response);
     return response.data;
   } catch (error) {
     console.error("Error al obtener extrusion en el front:", error);

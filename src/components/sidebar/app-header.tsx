@@ -1,16 +1,17 @@
-import {SidebarTrigger} from "./ui/sidebar";
 import {Separator} from "@radix-ui/react-separator";
-import FullScreenButton from "./fullScreen-button";
 import {useLocation} from "react-router-dom";
 
-import TypographyH4 from "./h4-text";
-import {Button} from "./ui/button";
 import {RefreshCw, RefreshCwOff} from "lucide-react";
 import {useContext, useEffect, useState} from "react";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
 import {DateRange} from "react-day-picker";
-import RangeDatePicker from "./rangeDate-picker";
 import {toast} from "sonner";
+import {SidebarTrigger} from "../ui/sidebar";
+import TypographyH4 from "../h4-text";
+import RangeDatePicker from "../rangeDate-picker";
+import {Button} from "../ui/button";
+import FullScreenButton from "../fullScreen-button";
+import {ModeToggle} from "./mode-toggle";
 
 const Header = () => {
   const location = useLocation();
@@ -48,7 +49,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 ">
+    <header className="flex h-12 shrink-0 items-center gap-2 border-b px-4 ">
       <SidebarTrigger className="-ml-1" />
       <div className="hidden sm:block">
         <TypographyH4 data={currentPath} />
@@ -65,6 +66,7 @@ const Header = () => {
       >
         {isUpdate ? <RefreshCw size={20} /> : <RefreshCwOff size={20} />}
       </Button>
+      <ModeToggle />
       <FullScreenButton />
     </header>
   );

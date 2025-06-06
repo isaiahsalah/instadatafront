@@ -1,4 +1,4 @@
-import {Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, LabelList, ResponsiveContainer, XAxis, YAxis} from "recharts";
 
 import {
   ChartConfig,
@@ -22,12 +22,7 @@ interface Props {
   unity?: string;
 }
 
-const VerticalBarChart: React.FC<Props> = ({
-  colums,
-  unity,
-  hasTextVertical = false,
-  hasNumberVertical = false,
-}) => {
+const VerticalBarChart: React.FC<Props> = ({colums}) => {
   useEffect(() => {
     console.log("Colums recibido:👌👌", colums);
   }, [colums]);
@@ -37,28 +32,19 @@ const VerticalBarChart: React.FC<Props> = ({
   }
 
   return (
-    <div className="  h-full ">
-      <ChartContainer config={chartConfig} className="  ">
+    <ChartContainer config={chartConfig} className=" h-[100%] ">
+      <ResponsiveContainer>
         <BarChart
           accessibilityLayer
           data={colums}
           barGap={2}
-          margin={{bottom: hasTextVertical ? 100 : 0}}
+          margin={{
+            top: 20,
+          }}
         >
           <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="name"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-            interval={0} // Asegura que todas las etiquetas se muestren
-            angle={hasTextVertical ? -90 : 0} // Rotación de 90 grados
-            textAnchor={hasTextVertical ? "end" : "middle"} // Alineación del texto rotado
-            tickFormatter={(value) =>
-              value.length > 15 ? `${value.toLowerCase().slice(0, 15)}...` : value.toLowerCase()
-            }
-          />
-
+          <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} interval={0} />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
           <YAxis
             domain={[
               0,
@@ -71,28 +57,26 @@ const VerticalBarChart: React.FC<Props> = ({
             hide
             tickMargin={5}
           />
-          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
           <Bar dataKey="data" fill="var(--color-desktop)" radius={5}>
-            <LabelList
-              position="top"
-              content={({x, y, value}) => (
-                <text
+            <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartContainer>
+  );
+};
+export default VerticalBarChart;
+
+/*<text
                   x={x}
                   y={y}
                   fill="var(--muted-foreground)"
                   alignmentBaseline={hasNumberVertical ? "hanging" : "text-after-edge"}
-                  textAnchor={hasNumberVertical ? "" : "start"}
+                  textAnchor={hasNumberVertical ? "" : ""}
+
                   transform={hasNumberVertical ? `rotate(-90, ${x}, ${y})` : ""}
-                  fontSize={13}
+                  fontSize={15}
+                  fontWeight={"bold"}
                 >
                   {`${value} ${unity ? unity : ""}`}
-                </text>
-              )}
-            />
-          </Bar>
-        </BarChart>
-      </ChartContainer>
-    </div>
-  );
-};
-export default VerticalBarChart;
+                </text>*/

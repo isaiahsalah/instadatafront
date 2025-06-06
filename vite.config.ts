@@ -5,9 +5,9 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
-  server: {
+  /*server: {
     port: 5175, // Cambia este valor por el puerto que quieras usar
-  },
+  },*/
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

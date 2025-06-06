@@ -10,8 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {Skeleton} from "@/components/ui/skeleton";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
 import {getExtrusion} from "@/services/bolsas.api";
+import {randomNumber} from "@/utils/funtions";
 import {IExtrusion} from "@/utils/interfaces";
 import {ColumnDef} from "@tanstack/react-table";
 import {useContext, useEffect, useMemo, useState} from "react";
@@ -163,7 +165,118 @@ const ExtrusionPage = () => {
 
   return (
     <div className="gap-4 grid grid-cols-6  ">
-      <Card className="@container/card col-span-6 lg:col-span-4 gap-1">
+      <div className="col-span-6   grid grid-cols-12 gap-4">
+        {extrusionA
+          ? extrusionA.map((dat) => (
+              <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
+                <CardHeader>
+                  <CardTitle>{` Linea ${dat.line} ${dat.group}`}</CardTitle>
+                  <CardDescription>
+                    {" "}
+                    {`Porcentaje de avance con respecto al objetivo del turno ${dat.turn}`}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className=" h-full">
+                  <RadialPieChart
+                    data={dat.good}
+                    total={dat.objective}
+                    dataTitle={`${
+                      dat.objective > 0
+                        ? Math.round((dat.good / dat.objective) * 100 * 100) / 100
+                        : 0
+                    }%`}
+                    dataDetail={`Meta: ${dat.objective}`}
+                  />
+                </CardContent>
+                <CardFooter className="flex-col gap-2 text-sm">
+                  <div className="leading-none text-muted-foreground">
+                    {`  ${Number(dat.good)} / ${dat.objective}`}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          : Array(4)
+              .fill(0)
+              .map((_, i) => (
+                <Card key={i} className="@container/card col-span-6 lg:col-span-3 gap-1">
+                  <CardHeader className="items-center pb-0">
+                    <CardTitle>
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(20, 70)}%`}} />
+                    </CardTitle>
+                    <CardDescription>
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(70, 100)}%`}} />
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 pb-0 mx-auto my-9">
+                    <Skeleton className="aspect-[1/1] w-45 rounded-full" />
+                  </CardContent>
+                  <CardFooter className="flex-col gap-2 text-sm">
+                    <div className="flex items-center gap-2 font-medium leading-none w-[100%]">
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(30, 80)}%`}} />
+                    </div>
+                    <div className="leading-none text-muted-foreground w-[100%]">
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(70, 100)}%`}} />
+                    </div>
+                  </CardFooter>
+                </Card>
+              ))}
+        {extrusionB
+          ? extrusionB.map((dat) => (
+              <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
+                <CardHeader>
+                  <CardTitle>{` Linea ${dat.line} ${dat.group}`}</CardTitle>
+                  <CardDescription>
+                    {" "}
+                    {`Porcentaje de avance con respecto al objetivo del turno ${dat.turn}`}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className=" h-full">
+                  <RadialPieChart
+                    data={dat.good}
+                    total={dat.objective}
+                    dataTitle={`${
+                      dat.objective > 0
+                        ? Math.round((dat.good / dat.objective) * 100 * 100) / 100
+                        : 0
+                    }%`}
+                    dataDetail={`Meta: ${dat.objective}`}
+                    variant={"chart5"}
+                  />
+                </CardContent>
+                <CardFooter className="flex-col gap-2 text-sm">
+                  <div className="leading-none text-muted-foreground">
+                    {`  ${Number(dat.good)} / ${dat.objective}`}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          : Array(4)
+              .fill(0)
+              .map((_, i) => (
+                <Card key={i} className="@container/card col-span-6 lg:col-span-3 gap-1">
+                  <CardHeader className="items-center pb-0">
+                    <CardTitle>
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(20, 70)}%`}} />
+                    </CardTitle>
+                    <CardDescription>
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(70, 100)}%`}} />
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 pb-0 mx-auto my-9">
+                    <Skeleton className="aspect-[1/1] w-45 rounded-full" />
+                  </CardContent>
+                  <CardFooter className="flex-col gap-2 text-sm">
+                    <div className="flex items-center gap-2 font-medium leading-none w-[100%]">
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(30, 80)}%`}} />
+                    </div>
+                    <div className="leading-none text-muted-foreground w-[100%]">
+                      <Skeleton className="h-5 " style={{width: `${randomNumber(70, 100)}%`}} />
+                    </div>
+                  </CardFooter>
+                </Card>
+              ))}
+      </div>
+      <Card className="@container/card col-span-6 lg:col-span-4 gap-1 ">
         <CardHeader>
           <CardDescription>Grupo A</CardDescription>
         </CardHeader>
@@ -179,7 +292,7 @@ const ExtrusionPage = () => {
       </Card>
       <Card className="@container/card col-span-6 lg:col-span-2 gap-1">
         <CardHeader>
-          <CardDescription>Gráfica Grupo A</CardDescription>
+          <CardDescription>Gráfica A</CardDescription>
         </CardHeader>
         <CardContent className=" h-full">
           <VerticalBarChart colums={extrusionChartDataA} unity="%" />
@@ -202,68 +315,12 @@ const ExtrusionPage = () => {
 
       <Card className="@container/card col-span-6 lg:col-span-2 gap-1">
         <CardHeader>
-          <CardDescription>Gráfica Grupo B</CardDescription>
+          <CardDescription>Gráfica B</CardDescription>
         </CardHeader>
         <CardContent className=" h-full">
-          {" "}
-          <VerticalBarChart colums={extrusionChartDataB} unity="%" />
+          <VerticalBarChart colums={extrusionChartDataB} unity="%" />{" "}
         </CardContent>
       </Card>
-      <div className="col-span-6   grid grid-cols-12 gap-4">
-        {extrusionA?.map((dat) => (
-          <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
-            <CardHeader>
-              <CardTitle>{` Linea ${dat.line} ${dat.group}`}</CardTitle>
-              <CardDescription>
-                {" "}
-                {`Porcentaje de avance con respecto al objetivo del turno ${dat.turn}`}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className=" h-full">
-              <RadialPieChart
-                data={dat.good}
-                total={dat.objective}
-                dataTitle={`${
-                  dat.objective > 0 ? Math.round((dat.good / dat.objective) * 100 * 100) / 100 : 0
-                }%`}
-                dataDetail={`Meta: ${dat.objective}`}
-              />
-            </CardContent>
-            <CardFooter className="flex-col gap-2 text-sm">
-              <div className="leading-none text-muted-foreground">
-                {`  ${Number(dat.good)} / ${dat.objective}`}
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
-        {extrusionB?.map((dat) => (
-          <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
-            <CardHeader>
-              <CardTitle>{` Linea ${dat.line} ${dat.group}`}</CardTitle>
-              <CardDescription>
-                {" "}
-                {`Porcentaje de avance con respecto al objetivo del turno ${dat.turn}`}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className=" h-full">
-              <RadialPieChart
-                data={dat.good}
-                total={dat.objective}
-                dataTitle={`${
-                  dat.objective > 0 ? Math.round((dat.good / dat.objective) * 100 * 100) / 100 : 0
-                }%`}
-                dataDetail={`Meta: ${dat.objective}`}
-                variant={"chart5"}
-              />
-            </CardContent>
-            <CardFooter className="flex-col gap-2 text-sm">
-              <div className="leading-none text-muted-foreground">
-                {`  ${Number(dat.good)} / ${dat.objective}`}
-              </div>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
     </div>
   );
 };

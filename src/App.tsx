@@ -1,14 +1,14 @@
 import {SidebarInset, SidebarProvider} from "./components/ui/sidebar";
 import ExtrusionPage from "./pages/ExtrusionPage";
-import {AppSidebar} from "@/components/app-sidebar";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {ThemeProvider} from "./providers/theme-provider";
 
-import Header from "./components/app-header";
 import {DateRangeProvider} from "./providers/rangeDate-provider";
 import {Toaster} from "./components/ui/sonner";
 import CortePage from "./pages/CortePage";
 import PrintingPage from "./pages/ImpresionPage";
+import Header from "./components/sidebar/app-header";
+import {AppSidebar} from "./components/sidebar/app-sidebar";
 
 function App() {
   return (
@@ -22,9 +22,11 @@ function App() {
               <div className="flex flex-1 flex-col gap-4 p-4 ">
                 <main>
                   <Routes>
-                    <Route path="/extrusion" element={<ExtrusionPage />} />
-                    <Route path="/corte" element={<CortePage />} />
-                    <Route path="/impresion" element={<PrintingPage />} />
+                    <Route path="/bolsas/extrusion" element={<ExtrusionPage />} />
+                    <Route path="/bolsas/corte" element={<CortePage />} />
+                    <Route path="/bolsas/impresion" element={<PrintingPage />} />
+                    <Route path="/bolsas/empaque" element={<PrintingPage />} />
+                    <Route path="/bolsas/embultaje" element={<PrintingPage />} />
                   </Routes>
                 </main>
               </div>

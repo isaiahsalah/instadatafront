@@ -1,8 +1,9 @@
-import VerticalBarChart from "@/components/charts/vertical-barChart";
+import {HorizontalChartBar} from "@/components/charts/BarChartHorizontal";
 import CircleProgress, {CircleProgressRef} from "@/components/circleProgress";
 import DataTable from "@/components/table/DataTable";
 import {Badge} from "@/components/ui/badge";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardDescription, CardTitle} from "@/components/ui/card";
+import {Separator} from "@/components/ui/separator";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
 import {getCorte} from "@/services/bolsas.api";
 import {ICorte} from "@/utils/interfaces";
@@ -229,45 +230,47 @@ const CortePage = () => {
   }, [corteA || corteB]);
 
   return (
-    <div className="gap-4 grid grid-cols-6  ">
-      <Card className="@container/card col-span-6 lg:col-span-5 gap-1">
-        <CardHeader>
-          <CardDescription>Gráfica Grupo A</CardDescription>
-        </CardHeader>
-        <CardContent className=" h-85">
-          {" "}
-          <VerticalBarChart colums={corteChartDataA} hasTextVertical />
+    <div className="gap-2 grid grid-cols-6  ">
+      <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
+        <CardContent>
+          <CardTitle>Grupo A</CardTitle>
+          <div className="grid my-4 gap-1">
+            <CardDescription>Bolsas</CardDescription>
+
+            <Separator />
+          </div>
+          <HorizontalChartBar colums={corteChartDataA} labelSpacing={250} />
+
+          <div className="grid my-4 gap-1">
+            <CardDescription>Envase</CardDescription>
+
+            <Separator />
+          </div>
+
+          <HorizontalChartBar colums={corteEnvaseChartDataA} labelSpacing={250} />
         </CardContent>
       </Card>
-      <Card className="@container/card col-span-6 lg:col-span-1 gap-1">
-        <CardHeader>
-          <CardDescription>Gráfica Envase Grupo A</CardDescription>
-        </CardHeader>
-        <CardContent className=" h-85">
-          {" "}
-          <VerticalBarChart colums={corteEnvaseChartDataA} hasTextVertical />
-        </CardContent>
-      </Card>
-      <Card className="@container/card col-span-6 lg:col-span-5 gap-1">
-        <CardHeader>
-          <CardDescription>Gráfica Grupo B</CardDescription>
-        </CardHeader>
-        <CardContent className=" h-85">
-          {" "}
-          <VerticalBarChart colums={corteChartDataB} hasTextVertical />
-        </CardContent>
-      </Card>
-      <Card className="@container/card col-span-6 lg:col-span-1 gap-1">
-        <CardHeader>
-          <CardDescription>Gráfica Envase Grupo B</CardDescription>
-        </CardHeader>
-        <CardContent className=" h-85">
-          {" "}
-          <VerticalBarChart colums={corteEnvaseChartDataB} hasTextVertical />
+      <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
+        <CardContent>
+          <CardTitle>Grupo B</CardTitle>
+          <div className="grid my-4 gap-1">
+            <CardDescription>Bolsas</CardDescription>
+
+            <Separator />
+          </div>
+          <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} />
+
+          <div className="grid my-4 gap-1">
+            <CardDescription>Envase</CardDescription>
+
+            <Separator />
+          </div>
+
+          <HorizontalChartBar colums={corteEnvaseChartDataB} labelSpacing={250} />
         </CardContent>
       </Card>
 
-      <Card className="@container/card col-span-6 lg:col-span-6 relative ">
+      <Card className="@container/card col-span-6 lg:col-span-3 relative ">
         <CircleProgress
           ref={progressRef} // Pasa la referencia al componente
           duration={timeNextUpdate} // 5 minutos
@@ -276,24 +279,24 @@ const CortePage = () => {
           size={18}
           className="absolute top-0 right-0 z-10 m-6"
         />
-        <CardHeader>
-          <CardTitle>Grupo A</CardTitle>
-        </CardHeader>
         <CardContent>
-          <CardDescription>Corte</CardDescription>
-
+          <CardTitle>Grupo A</CardTitle>
+          <div className="grid my-2 gap-1">
+            <CardDescription>Corte</CardDescription>
+            <Separator />
+          </div>{" "}
           <DataTable
             actions={<></>}
             columns={columnsJaba}
             data={corteA}
             hasPaginated={false}
             hasOptions={false}
-            hasAutoPaginated
-            rowsAmount={7}
           />
-        </CardContent>
-        <CardContent>
-          <CardDescription>Envase</CardDescription>
+          <div className="grid my-2 gap-1">
+            <CardDescription>Envase</CardDescription>
+            <Separator />
+          </div>{" "}
+          <Separator />
           <DataTable
             actions={<></>}
             columns={columnsWeigt}
@@ -304,24 +307,24 @@ const CortePage = () => {
         </CardContent>
       </Card>
 
-      <Card className="@container/card col-span-6 lg:col-span-6 gap-1">
-        <CardHeader>
-          <CardTitle>Grupo B</CardTitle>
-        </CardHeader>
+      <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
         <CardContent>
-          <CardDescription>Corte</CardDescription>
+          <CardTitle>Grupo B</CardTitle>
+          <div className="grid my-2 gap-1">
+            <CardDescription>Corte</CardDescription>
+            <Separator />
+          </div>{" "}
           <DataTable
             actions={<></>}
             columns={columnsJaba}
             data={corteB}
             hasPaginated={false}
             hasOptions={false}
-            hasAutoPaginated
-            rowsAmount={7}
           />
-        </CardContent>
-        <CardContent>
-          <CardDescription>Envase</CardDescription>
+          <div className="grid my-2 gap-1">
+            <CardDescription>Envase</CardDescription>
+            <Separator />
+          </div>{" "}
           <DataTable
             actions={<></>}
             columns={columnsWeigt}
