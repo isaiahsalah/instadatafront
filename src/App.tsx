@@ -9,6 +9,8 @@ import CortePage from "./pages/CortePage";
 import PrintingPage from "./pages/ImpresionPage";
 import Header from "./components/sidebar/app-header";
 import {AppSidebar} from "./components/sidebar/app-sidebar";
+import EmpaquePage from "./pages/EmpaquePage";
+import BulkPage from "./pages/EmbultajePage";
 
 function App() {
   return (
@@ -25,8 +27,8 @@ function App() {
                     <Route path="/bolsas/extrusion" element={<ExtrusionPage />} />
                     <Route path="/bolsas/corte" element={<CortePage />} />
                     <Route path="/bolsas/impresion" element={<PrintingPage />} />
-                    <Route path="/bolsas/empaque" element={<PrintingPage />} />
-                    <Route path="/bolsas/embultaje" element={<PrintingPage />} />
+                    <Route path="/bolsas/empaque" element={<EmpaquePage />} />
+                    <Route path="/bolsas/embultaje" element={<BulkPage />} />
                   </Routes>
                 </main>
               </div>

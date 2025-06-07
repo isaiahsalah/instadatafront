@@ -26,6 +26,30 @@ export interface ICorte {
   weight: number;
   jaba: number;
 }
+export interface IEmpaque {
+  group: string;
+  turn: string;
+  operator: string;
+  product: string;
+  incentive: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  weight: number;
+  jaba: number;
+}
+export interface IEmbultaje {
+  turn: string;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  weight: number;
+  bulk: number;
+}
 
 export interface ITermoformado {
   turno: string;

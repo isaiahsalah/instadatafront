@@ -40,7 +40,7 @@ export const getCorte = async ({
     console.log("📍📍", response);
     return response.data;
   } catch (error) {
-    console.error("Error al obtener extrusion en el front:", error);
+    console.error("Error al obtener corte en el front:", error);
     throw error;
   }
 };
@@ -62,6 +62,50 @@ export const getImpresion = async ({
     return response.data;
   } catch (error) {
     console.error("Error al obtener impresion en el front:", error);
+    throw error;
+  }
+};
+
+export const getEmpaque = async ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+}) => {
+  try {
+    const params = {
+      startDate,
+      endDate,
+    };
+
+    const response = await apiClient.get(url + "/empaque", {params});
+    console.log("📍📍", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener empaque en el front:", error);
+    throw error;
+  }
+};
+
+export const getEmbultaje = async ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+}) => {
+  try {
+    const params = {
+      startDate,
+      endDate,
+    };
+
+    const response = await apiClient.get(url + "/embultaje", {params});
+    console.log("📍📍", response);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener empaque en el front:", error);
     throw error;
   }
 };

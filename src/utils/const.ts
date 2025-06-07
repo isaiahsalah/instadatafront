@@ -9,31 +9,31 @@ export const menuData = {
       items: [
         {
           title: "Extrusion",
-          url: "extrusion",
+          url: "bolsas/extrusion",
           icon: GlassWater,
           state: true,
         },
         {
           title: "Impresión",
-          url: "impresion",
+          url: "bolsas/impresion",
           icon: Stamp,
           state: true,
         },
         {
           title: "Corte",
-          url: "corte",
+          url: "bolsas/corte",
           icon: Scissors,
           state: true,
         },
         {
           title: "Empaque",
-          url: "empaque",
+          url: "bolsas/empaque",
           icon: Stamp,
           state: true,
         },
         {
           title: "Embultaje",
-          url: "embultaje",
+          url: "bolsas/embultaje",
           icon: Stamp,
           state: true,
         },
