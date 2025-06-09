@@ -7,6 +7,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {useEffect} from "react";
+import SkeletonVerticalBarChar from "../skeletons/SkeHorizontalBarChart.";
 
 const chartConfig = {
   desktop: {
@@ -28,7 +29,7 @@ const VerticalBarChart: React.FC<Props> = ({colums}) => {
   }, [colums]);
 
   if (!colums) {
-    return;
+    return <SkeletonVerticalBarChar length={4} />;
   }
 
   return (

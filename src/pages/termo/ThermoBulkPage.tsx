@@ -1,16 +1,16 @@
-import VerticalBarChart from "@/components/charts/vertical-barChart";
+import VerticalBarChart from "@/components/charts/ChartBarVertical";
 import DataTable from "@/components/table/DataTable";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardDescription, CardHeader} from "@/components/ui/card";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
-import {getEmbultaje} from "@/services/bolsas.api";
-import {IEmbultaje} from "@/utils/interfaces";
+import {getThermoEmbultaje} from "@/services/thermo.api";
+import {IThermoEmbultaje} from "@/utils/interfaces";
 import {ColumnDef} from "@tanstack/react-table";
 import {useContext, useEffect, useMemo, useState} from "react";
 
-const BulkPage = () => {
+const ThermoBulkPage = () => {
   const {dateRange} = useContext(DateRangeContext);
-  const [printing, setPrinting] = useState<IEmbultaje[] | null>(null);
+  const [printing, setPrinting] = useState<IThermoEmbultaje[] | null>(null);
   const [printingChartData, setPrintingChartData] = useState<{name: string; data: number}[]>();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const BulkPage = () => {
   }, [dateRange]);
 
   const updateView = async () => {
-    const printingData: IEmbultaje[] = await getEmbultaje({
+    const printingData: IThermoEmbultaje[] = await getThermoEmbultaje({
       startDate: dateRange.from,
       endDate: dateRange.to,
     });
@@ -40,7 +40,7 @@ const BulkPage = () => {
   };
 
   // Generar columnas dinámicamente
-  const columns: ColumnDef<IEmbultaje>[] = useMemo(() => {
+  const columns: ColumnDef<IThermoEmbultaje>[] = useMemo(() => {
     if (!printing) return [];
     return [
       {
@@ -126,4 +126,4 @@ const BulkPage = () => {
   );
 };
 
-export default BulkPage;
+export default ThermoBulkPage;

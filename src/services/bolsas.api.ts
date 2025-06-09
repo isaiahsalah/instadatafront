@@ -2,7 +2,28 @@ import {apiClient} from "./api";
 
 const url = "/bolsas";
 
-export const getExtrusion = async ({
+export const getBagsMezcla = async ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+}) => {
+  try {
+    const params = {
+      startDate,
+      endDate,
+    };
+
+    const response = await apiClient.get(url + "/mezcla", {params});
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener extrusion en el front:", error);
+    throw error;
+  }
+};
+
+export const getBagsExtrusion = async ({
   startDate,
   endDate,
 }: {
@@ -23,7 +44,7 @@ export const getExtrusion = async ({
   }
 };
 
-export const getCorte = async ({
+export const getBagsCorte = async ({
   startDate,
   endDate,
 }: {
@@ -45,7 +66,7 @@ export const getCorte = async ({
   }
 };
 
-export const getImpresion = async ({
+export const getBagsImpresion = async ({
   startDate,
   endDate,
 }: {
@@ -66,7 +87,7 @@ export const getImpresion = async ({
   }
 };
 
-export const getEmpaque = async ({
+export const getBagsEmpaque = async ({
   startDate,
   endDate,
 }: {
@@ -88,7 +109,7 @@ export const getEmpaque = async ({
   }
 };
 
-export const getEmbultaje = async ({
+export const getBagsEmbultaje = async ({
   startDate,
   endDate,
 }: {

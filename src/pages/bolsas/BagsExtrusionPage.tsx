@@ -1,5 +1,5 @@
-import RadialPieChart from "@/components/charts/radial-pieChart";
-import VerticalBarChart from "@/components/charts/vertical-barChart";
+import RadialPieChart from "@/components/charts/ChartRadialPie";
+import VerticalBarChart from "@/components/charts/ChartBarVertical";
 import DataTable from "@/components/table/DataTable";
 import {Badge} from "@/components/ui/badge";
 import {
@@ -12,16 +12,16 @@ import {
 } from "@/components/ui/card";
 import {Skeleton} from "@/components/ui/skeleton";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
-import {getExtrusion} from "@/services/bolsas.api";
+import {getBagsExtrusion} from "@/services/bolsas.api";
 import {randomNumber} from "@/utils/funtions";
-import {IExtrusion} from "@/utils/interfaces";
+import {IBagsExtrusion} from "@/utils/interfaces";
 import {ColumnDef} from "@tanstack/react-table";
 import {useContext, useEffect, useMemo, useState} from "react";
 
-const ExtrusionPage = () => {
+const BagsExtrusionPage = () => {
   const {dateRange} = useContext(DateRangeContext);
-  const [extrusionA, setExtrusionA] = useState<IExtrusion[] | null>(null);
-  const [extrusionB, setExtrusionB] = useState<IExtrusion[] | null>(null);
+  const [extrusionA, setExtrusionA] = useState<IBagsExtrusion[] | null>(null);
+  const [extrusionB, setExtrusionB] = useState<IBagsExtrusion[] | null>(null);
   const [extrusionChartDataA, setExtrusionChartDataA] = useState<{name: string; data: number}[]>();
   const [extrusionChartDataB, setExtrusionChartDataB] = useState<{name: string; data: number}[]>();
 
@@ -38,7 +38,7 @@ const ExtrusionPage = () => {
   }, [dateRange]);
 
   const updateView = async () => {
-    const extrusionData: IExtrusion[] = await getExtrusion({
+    const extrusionData: IBagsExtrusion[] = await getBagsExtrusion({
       startDate: dateRange.from,
       endDate: dateRange.to,
     });
@@ -64,7 +64,7 @@ const ExtrusionPage = () => {
   };
 
   // Generar columnas dinámicamente
-  const columns: ColumnDef<IExtrusion>[] = useMemo(() => {
+  const columns: ColumnDef<IBagsExtrusion>[] = useMemo(() => {
     if (!extrusionA || !extrusionB) return [];
     return [
       {
@@ -325,4 +325,4 @@ const ExtrusionPage = () => {
   );
 };
 
-export default ExtrusionPage;
+export default BagsExtrusionPage;

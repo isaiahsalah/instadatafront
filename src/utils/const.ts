@@ -1,4 +1,13 @@
-import {Scissors, GlassWater, Stamp, Milk, Heater} from "lucide-react";
+import {
+  Scissors,
+  Milk,
+  Cylinder,
+  Boxes,
+  PackageOpen,
+  PaintRoller,
+  Waves,
+  Blend,
+} from "lucide-react";
 
 export const menuData = {
   versions: ["0.0.1"],
@@ -8,15 +17,21 @@ export const menuData = {
       url: "#",
       items: [
         {
+          title: "Mezcla",
+          url: "bolsas/mezcla",
+          icon: Blend,
+          state: true,
+        },
+        {
           title: "Extrusion",
           url: "bolsas/extrusion",
-          icon: GlassWater,
+          icon: Cylinder,
           state: true,
         },
         {
           title: "Impresión",
           url: "bolsas/impresion",
-          icon: Stamp,
+          icon: PaintRoller,
           state: true,
         },
         {
@@ -28,13 +43,13 @@ export const menuData = {
         {
           title: "Empaque",
           url: "bolsas/empaque",
-          icon: Stamp,
+          icon: PackageOpen,
           state: true,
         },
         {
           title: "Embultaje",
           url: "bolsas/embultaje",
-          icon: Stamp,
+          icon: Boxes,
           state: true,
         },
       ],
@@ -45,15 +60,21 @@ export const menuData = {
       items: [
         {
           title: "Extrusion",
-          url: "extrusion",
-          icon: GlassWater,
+          url: "termo/extrusion",
+          icon: Cylinder,
           state: true,
         },
         {
-          title: "Termoformado",
-          url: "termoformado",
-          icon: Heater,
-          state: false,
+          title: "Corte",
+          url: "termo/corte",
+          icon: Scissors,
+          state: true,
+        },
+        {
+          title: "Embultaje",
+          url: "bolsas/embultaje",
+          icon: Boxes,
+          state: true,
         },
       ],
     },
@@ -64,13 +85,13 @@ export const menuData = {
         {
           title: "Extrusion",
           url: "extrusion",
-          icon: GlassWater,
-          state: true,
+          icon: Cylinder,
+          state: false,
         },
         {
-          title: "Termoformado",
+          title: "Corte",
           url: "termoformado",
-          icon: Heater,
+          icon: Scissors,
           state: false,
         },
       ],
@@ -82,7 +103,7 @@ export const menuData = {
         {
           title: "Termoformado",
           url: "termoformado",
-          icon: Heater,
+          icon: Waves,
           state: false,
         },
       ],

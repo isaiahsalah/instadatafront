@@ -13,7 +13,7 @@ export interface CircleProgressRef {
   resetProgress: () => void; // Método para reiniciar el progreso
 }
 
-const CircleProgress = forwardRef<CircleProgressRef, CircleProgressProps>(
+export const CircleProgress = forwardRef<CircleProgressRef, CircleProgressProps>(
   ({duration = 300000, step = 100, onComplete = () => {}, size = 100, className}, ref) => {
     const [progress, setProgress] = useState<number>(0);
 
@@ -64,5 +64,3 @@ const CircleProgress = forwardRef<CircleProgressRef, CircleProgressProps>(
     );
   }
 );
-
-export default CircleProgress;

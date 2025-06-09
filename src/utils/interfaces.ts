@@ -1,4 +1,4 @@
-export type IExtrusion = {
+export type IBagsExtrusion = {
   group: string;
   turn: string;
   line: number;
@@ -12,7 +12,7 @@ export type IExtrusion = {
   friday: string;
 };
 
-export interface ICorte {
+export interface IBagsCorte {
   group: string;
   turn: string;
   operator: string;
@@ -26,7 +26,7 @@ export interface ICorte {
   weight: number;
   jaba: number;
 }
-export interface IEmpaque {
+export interface IBagsEmpaque {
   group: string;
   turn: string;
   operator: string;
@@ -40,7 +40,7 @@ export interface IEmpaque {
   weight: number;
   jaba: number;
 }
-export interface IEmbultaje {
+export interface IBagsEmbultaje {
   turn: string;
   monday: string;
   tuesday: string;
@@ -51,17 +51,7 @@ export interface IEmbultaje {
   bulk: number;
 }
 
-export interface ITermoformado {
-  turno: string;
-}
-export interface IEmpaque {
-  turno: string;
-}
-export interface IEmbultaje {
-  turno: string;
-}
-
-export interface IImpresion {
+export interface IBagsImpresion {
   turn: string;
   total: number;
   objective: number;
@@ -72,17 +62,66 @@ export interface IImpresion {
   friday: string;
 }
 
-export interface IMezcla {
-  turno: string;
+export interface IBagsMezcla {
+  turn: string;
+  weight: number;
+  total: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+}
+
+export interface IThermoExtrusion {
+  group: string;
+  turn: string;
+  machine: string;
+  good: number;
+  bad: number;
+  objective: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+}
+
+export interface IThermoCorte {
+  group: string;
+  turn: string;
+  operator: string;
+  product: string;
+  incentive: number;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  weight: number;
+  jaba: number;
+}
+
+export interface IThermoEmbultaje {
+  turn: string;
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  weight: number;
+  bulk: number;
 }
 
 // export type Extrusion_pa_po_withoutTurno = Omit<IExtrusion, 'turno'>; // Excluye 'turno' del tipo
 
 export type IGeneral =
-  | IExtrusion
-  | ICorte
-  | ITermoformado
-  | IEmpaque
-  | IEmbultaje
-  | IImpresion
-  | IMezcla;
+  | IThermoExtrusion
+  | IBagsExtrusion
+  | IBagsCorte
+  | IThermoEmbultaje
+  | IThermoEmbultaje
+  | IBagsEmpaque
+  | IBagsEmbultaje
+  | IBagsImpresion
+  | IBagsMezcla;

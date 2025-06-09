@@ -6,6 +6,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import SkeletonHorizontalBarChar from "../skeletons/SkeHorizontalBarChart.";
 /*
 export const description = "A bar chart with a custom label";
 
@@ -42,10 +43,11 @@ interface Props {
 
 export const HorizontalChartBar: React.FC<Props> = ({colums, labelSpacing = 50}) => {
   if (!colums) {
-    return;
+    return <SkeletonHorizontalBarChar length={4} />;
   }
   const barHeight = 25; // Altura aproximada por barra
   const chartHeight = colums.length * barHeight;
+
   return (
     <ChartContainer config={chartConfig}>
       <div style={{width: "100%", height: `${chartHeight}px`}}>

@@ -1,27 +1,22 @@
-import {HorizontalChartBar} from "@/components/charts/BarChartHorizontal";
-import CircleProgress, {CircleProgressRef} from "@/components/circleProgress";
+import {HorizontalChartBar} from "@/components/charts/ChartBarHorizontal";
+import {CircleProgress, CircleProgressRef} from "@/components/CircleProgress";
 import DataTable from "@/components/table/DataTable";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardDescription, CardTitle} from "@/components/ui/card";
 import {Separator} from "@/components/ui/separator";
 import {DateRangeContext} from "@/providers/rangeDate-provider";
-import {getCorte} from "@/services/bolsas.api";
-import {ICorte} from "@/utils/interfaces";
+import {getBagsEmpaque} from "@/services/bolsas.api";
+import {IBagsEmpaque} from "@/utils/interfaces";
 import {ColumnDef} from "@tanstack/react-table";
 import {useContext, useEffect, useMemo, useRef, useState} from "react";
 
-const CortePage = () => {
+const BagsPackingPage = () => {
   const {dateRange} = useContext(DateRangeContext);
-  const [corteA, setCorteA] = useState<ICorte[] | null>(null);
-  const [corteB, setCorteB] = useState<ICorte[] | null>(null);
-  const [corteEnvaseA, setCorteEnvaseA] = useState<ICorte[] | null>(null);
-  const [corteEnvaseB, setCorteEnvaseB] = useState<ICorte[] | null>(null);
+  const [corteA, setCorteA] = useState<IBagsEmpaque[] | null>(null);
+  const [corteB, setCorteB] = useState<IBagsEmpaque[] | null>(null);
   const [corteChartDataA, setCorteChartDataA] = useState<{name: string; data: number}[]>();
   const [corteChartDataB, setCorteChartDataB] = useState<{name: string; data: number}[]>();
-  const [corteEnvaseChartDataA, setCorteEnvaseChartDataA] =
-    useState<{name: string; data: number}[]>();
-  const [corteEnvaseChartDataB, setCorteEnvaseChartDataB] =
-    useState<{name: string; data: number}[]>();
+
   const timeNextUpdate = 5 * 60 * 1000; // 5 minutos
   /*
   useEffect(() => {
@@ -71,21 +66,17 @@ const CortePage = () => {
   };
 
   const updateView = async () => {
-    const corteData: ICorte[] = await getCorte({
+    const corteData: IBagsEmpaque[] = await getBagsEmpaque({
       startDate: dateRange.from,
       endDate: dateRange.to,
     });
     const corteDataA = corteData.filter((item) => item.group === "A" && item.jaba);
     const corteDataB = corteData.filter((item) => item.group === "B" && item.jaba);
 
-    const corteEnvaseDataA = corteData.filter((item) => item.group === "A" && !item.jaba);
-    const corteEnvaseDataB = corteData.filter((item) => item.group === "B" && !item.jaba);
     console.log("Sin jaba ", corteDataA);
 
     setCorteA(corteDataA);
     setCorteB(corteDataB);
-    setCorteEnvaseA(corteEnvaseDataA);
-    setCorteEnvaseB(corteEnvaseDataB);
 
     const reducedArrayA = corteDataA.map((item) => ({
       name: `${item.operator} `,
@@ -95,23 +86,14 @@ const CortePage = () => {
       name: `${item.operator} `,
       data: Number(item.jaba ? item.jaba : item.weight),
     }));
-    const reducedArrayEnvaseA = corteEnvaseDataA.map((item) => ({
-      name: `${item.operator} `,
-      data: Number(item.jaba ? item.jaba : item.weight),
-    }));
-    const reducedArrayEnvaseB = corteEnvaseDataB.map((item) => ({
-      name: `${item.operator} `,
-      data: Number(item.jaba ? item.jaba : item.weight),
-    }));
+
     console.log("reducido", reducedArrayA, reducedArrayB);
     setCorteChartDataA(reducedArrayA);
     setCorteChartDataB(reducedArrayB);
-    setCorteEnvaseChartDataA(reducedArrayEnvaseA);
-    setCorteEnvaseChartDataB(reducedArrayEnvaseB);
   };
 
   // Generar columnas dinámicamente
-  const columnsJaba: ColumnDef<ICorte>[] = useMemo(() => {
+  const columnsJaba: ColumnDef<IBagsEmpaque>[] = useMemo(() => {
     if (!corteA || !corteB) return [];
     return [
       {
@@ -170,67 +152,8 @@ const CortePage = () => {
     ];
   }, [corteA || corteB]);
 
-  // Generar columnas dinámicamente
-  const columnsWeigt: ColumnDef<ICorte>[] = useMemo(() => {
-    if (!corteA || !corteB) return [];
-    return [
-      {
-        accessorKey: "turn",
-        header: "Turno",
-        cell: (info) => {
-          return (
-            <Badge variant={"outline"} className="text-muted-foreground">
-              {info.getValue() as string}
-            </Badge>
-          );
-        },
-      },
-      {
-        accessorKey: "operator",
-        header: "Operador",
-        cell: (info) => info.getValue() as string,
-      },
-      {
-        accessorKey: "monday",
-        header: "Lun.",
-        cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
-      },
-      {
-        accessorKey: "tuesday",
-        header: "Mar.",
-        cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
-      },
-      {
-        accessorKey: "wednesday",
-        header: "Mie.",
-        cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
-      },
-      {
-        accessorKey: "thursday",
-        header: "Jue.",
-        cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
-      },
-      {
-        accessorKey: "friday",
-        header: "Vie.",
-        cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
-      },
-
-      {
-        accessorKey: "weight",
-        header: "Peso",
-        cell: (info) => parseFloat(info.getValue() as string),
-      },
-    ];
-  }, [corteA || corteB]);
-
   return (
-    <div className="gap-2 grid grid-cols-6  ">
+    <div className="gap-4 grid grid-cols-6  ">
       <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
         <CardContent>
           <CardTitle>Grupo A</CardTitle>
@@ -240,14 +163,6 @@ const CortePage = () => {
             <Separator />
           </div>
           <HorizontalChartBar colums={corteChartDataA} labelSpacing={250} />
-
-          <div className="grid my-4 gap-1">
-            <CardDescription>Envase</CardDescription>
-
-            <Separator />
-          </div>
-
-          <HorizontalChartBar colums={corteEnvaseChartDataA} labelSpacing={250} />
         </CardContent>
       </Card>
       <Card className="@container/card col-span-6 lg:col-span-3 gap-1">
@@ -259,14 +174,6 @@ const CortePage = () => {
             <Separator />
           </div>
           <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} />
-
-          <div className="grid my-4 gap-1">
-            <CardDescription>Envase</CardDescription>
-
-            <Separator />
-          </div>
-
-          <HorizontalChartBar colums={corteEnvaseChartDataB} labelSpacing={250} />
         </CardContent>
       </Card>
 
@@ -292,18 +199,6 @@ const CortePage = () => {
             hasPaginated={false}
             hasOptions={false}
           />
-          <div className="grid my-2 gap-1">
-            <CardDescription>Envase</CardDescription>
-            <Separator />
-          </div>{" "}
-          <Separator />
-          <DataTable
-            actions={<></>}
-            columns={columnsWeigt}
-            data={corteEnvaseA}
-            hasPaginated={false}
-            hasOptions={false}
-          />
         </CardContent>
       </Card>
 
@@ -321,21 +216,10 @@ const CortePage = () => {
             hasPaginated={false}
             hasOptions={false}
           />
-          <div className="grid my-2 gap-1">
-            <CardDescription>Envase</CardDescription>
-            <Separator />
-          </div>{" "}
-          <DataTable
-            actions={<></>}
-            columns={columnsWeigt}
-            data={corteEnvaseB}
-            hasPaginated={false}
-            hasOptions={false}
-          />
         </CardContent>
       </Card>
     </div>
   );
 };
 
-export default CortePage;
+export default BagsPackingPage;

@@ -7,10 +7,10 @@ import {DateRangeContext} from "@/providers/rangeDate-provider";
 import {DateRange} from "react-day-picker";
 import {toast} from "sonner";
 import {SidebarTrigger} from "../ui/sidebar";
-import TypographyH4 from "../h4-text";
-import RangeDatePicker from "../rangeDate-picker";
+import TypographyH4 from "../H4";
+import RangeDatePicker from "../RangeDatePicker";
 import {Button} from "../ui/button";
-import FullScreenButton from "../fullScreen-button";
+import FullScreenButton from "../FullScreenButton";
 import {ModeToggle} from "./mode-toggle";
 
 const Header = () => {
