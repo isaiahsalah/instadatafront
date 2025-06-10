@@ -1,5 +1,5 @@
 import {HorizontalChartBar} from "@/components/charts/ChartBarHorizontal";
-import {CircleProgress, CircleProgressRef} from "@/components/CiircleProgress";
+import {CircleProgress, CircleProgressRef} from "@/components/CircleProgress";
 import DataTable from "@/components/table/DataTable";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardDescription, CardTitle} from "@/components/ui/card";
