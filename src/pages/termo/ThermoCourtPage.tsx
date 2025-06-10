@@ -175,26 +175,12 @@ const ThermoCourtPage = () => {
       {
         accessorKey: "weight",
         header: "Peso",
-        cell: (info) =>
-          info.getValue() ? (
-            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
-          ) : (
-            <Badge variant={"outline"} className="text-muted-foreground">
-              -
-            </Badge>
-          ),
+        cell: (info) => parseFloat(info.getValue() as string),
       },
       {
         accessorKey: "jaba",
         header: "Jaba",
-        cell: (info) =>
-          info.getValue() ? (
-            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
-          ) : (
-            <Badge variant={"outline"} className="text-muted-foreground">
-              -
-            </Badge>
-          ),
+        cell: (info) => parseFloat(info.getValue() as string),
       },
     ];
   }, [corteA || corteB]);

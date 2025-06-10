@@ -73,7 +73,7 @@ export const HorizontalChartBar: React.FC<Props> = ({
               axisLine={false}
               width={labelSpacing}
               interval={0}
-              tickFormatter={(value) => value.slice(0, 28)}
+              tickFormatter={(value) => value.slice(0, labelSpacing / 10)}
               //hide
             />
 
