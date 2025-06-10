@@ -26,7 +26,6 @@ export const CircleProgress = forwardRef<CircleProgressRef, CircleProgressProps>
       const interval = setInterval(() => {
         const elapsedTime = Date.now() - startTime;
         const newProgress = (elapsedTime / duration) * 100;
-        //console.log("Progreso:", newProgress);
 
         if (newProgress >= 100) {
           setProgress(0); // Reinicia el progreso
