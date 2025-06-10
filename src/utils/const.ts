@@ -5,8 +5,8 @@ import {
   Boxes,
   PackageOpen,
   PaintRoller,
-  Waves,
   Blend,
+  CircleOff,
 } from "lucide-react";
 
 export const menuData = {
@@ -79,44 +79,32 @@ export const menuData = {
       ],
     },
     {
-      title: "Expandido",
-      url: "#",
-      items: [
-        {
-          title: "Extrusion",
-          url: "extrusion",
-          icon: Cylinder,
-          state: false,
-        },
-        {
-          title: "Corte",
-          url: "termoformado",
-          icon: Scissors,
-          state: false,
-        },
-      ],
-    },
-    {
-      title: "Inyeción",
-      url: "#",
-      items: [
-        {
-          title: "Termoformado",
-          url: "termoformado",
-          icon: Waves,
-          state: false,
-        },
-      ],
-    },
-    {
       title: "Tanque",
       url: "#",
       items: [
         {
-          title: "Tanques",
-          url: "tanque",
+          title: "Mezcla",
+          url: "tanque/mezcla",
+          icon: Blend,
+          state: true,
+        },
+        {
+          title: "Rotomoldeo",
+          url: "tanque/roto",
+          icon: CircleOff,
+          state: true,
+        },
+        {
+          title: "Conexiones",
+          url: "tanque/conex",
           icon: Milk,
-          state: false,
+          state: true,
+        },
+        {
+          title: "Terminaciones",
+          url: "tanque/term",
+          icon: Milk,
+          state: true,
         },
       ],
     },
