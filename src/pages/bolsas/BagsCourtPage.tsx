@@ -134,38 +134,74 @@ const BagsCourtPage = () => {
         accessorKey: "monday",
         header: "Lun.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "tuesday",
         header: "Mar.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "wednesday",
         header: "Mie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "thursday",
         header: "Jue.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "friday",
         header: "Vie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
 
       {
         accessorKey: "jaba",
         header: "Jabas",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
     ];
   }, [corteA || corteB]);
@@ -191,34 +227,64 @@ const BagsCourtPage = () => {
         cell: (info) => info.getValue() as string,
       },
       {
-        accessorKey: "monday",
+        accessorFn: (row) => parseInt(row.monday, 10),
         header: "Lun.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "tuesday",
+        accessorFn: (row) => parseInt(row.tuesday, 10),
         header: "Mar.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "wednesday",
+        accessorFn: (row) => parseInt(row.wednesday, 10),
         header: "Mie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "thursday",
+        accessorFn: (row) => parseInt(row.thursday, 10),
         header: "Jue.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "friday",
+        accessorFn: (row) => parseInt(row.friday, 10),
         header: "Vie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
 
       {
@@ -258,7 +324,7 @@ const BagsCourtPage = () => {
 
             <Separator />
           </div>
-          <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} />
+          <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} variant={"chart5"} />
 
           <div className="grid my-4 gap-1">
             <CardDescription>Envase</CardDescription>
@@ -266,7 +332,11 @@ const BagsCourtPage = () => {
             <Separator />
           </div>
 
-          <HorizontalChartBar colums={corteEnvaseChartDataB} labelSpacing={250} />
+          <HorizontalChartBar
+            colums={corteEnvaseChartDataB}
+            labelSpacing={250}
+            variant={"chart5"}
+          />
         </CardContent>
       </Card>
 

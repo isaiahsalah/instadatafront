@@ -56,34 +56,64 @@ const ThermoBulkPage = () => {
       },
 
       {
-        accessorKey: "monday",
+        accessorFn: (row) => parseInt(row.monday, 10),
         header: "Lun.",
         cell: (info) =>
-          parseInt(info.getValue() as string, 10) ? parseInt(info.getValue() as string, 10) : "-",
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "tuesday",
+        accessorFn: (row) => parseInt(row.tuesday, 10),
         header: "Mar.",
         cell: (info) =>
-          parseInt(info.getValue() as string, 10) ? parseInt(info.getValue() as string, 10) : "-",
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "wednesday",
+        accessorFn: (row) => parseInt(row.wednesday, 10),
         header: "Mie.",
         cell: (info) =>
-          parseInt(info.getValue() as string, 10) ? parseInt(info.getValue() as string, 10) : "-",
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "thursday",
+        accessorFn: (row) => parseInt(row.thursday, 10),
         header: "Jue.",
         cell: (info) =>
-          parseInt(info.getValue() as string, 10) ? parseInt(info.getValue() as string, 10) : "-",
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "friday",
+        accessorFn: (row) => parseInt(row.friday, 10),
         header: "Vie.",
         cell: (info) =>
-          parseInt(info.getValue() as string, 10) ? parseInt(info.getValue() as string, 10) : "-",
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "bulk",

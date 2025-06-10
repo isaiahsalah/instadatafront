@@ -1,5 +1,3 @@
-import {ChartBarStacked} from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -22,9 +20,9 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <SidebarMenuItem className="flex items-center justify-between gap-2 m-0  ">
-          <div className="flex aspect-square size-6 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <ChartBarStacked className="size-4" />
+        <SidebarMenuItem className="flex items-center justify-between gap-3 m-1  ">
+          <div className="flex aspect-square size-7 items-center justify-center rounded-lg   ">
+            <img src=" /logo.svg" />
           </div>
           <div className="flex flex-col gap-0.5 leading-none mr-auto">
             <span className="font-semibold">InstaData</span>

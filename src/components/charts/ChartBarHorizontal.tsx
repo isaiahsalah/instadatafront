@@ -1,11 +1,6 @@
 import {Bar, BarChart, LabelList, ResponsiveContainer, XAxis, YAxis} from "recharts";
 
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import {ChartContainer, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
 import SkeletonHorizontalBarChar from "../skeletons/SkeHorizontalBarChart.";
 /*
 export const description = "A bar chart with a custom label";
@@ -19,29 +14,27 @@ const chartData = [
   {month: "June", desktop: 214, mobile: 140},
 ];*/
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-2)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
-  label: {
-    color: "var(--background)",
-  },
-} satisfies ChartConfig;
-
 interface Props {
   colums: {name: string; data: number}[] | undefined;
   hasTextVertical?: boolean;
   hasNumberVertical?: boolean;
   unity?: string;
   labelSpacing?: number;
+  variant?: keyof typeof colorVariants;
 }
+const colorVariants = {
+  chart1: "hsl(var(--chart-1))",
+  chart2: "hsl(var(--chart-2))",
+  chart3: "hsl(var(--chart-3))",
+  chart4: "hsl(var(--chart-4))",
+  chart5: "hsl(var(--chart-5))",
+};
 
-export const HorizontalChartBar: React.FC<Props> = ({colums, labelSpacing = 50}) => {
+export const HorizontalChartBar: React.FC<Props> = ({
+  colums,
+  labelSpacing = 50,
+  variant = "chart1",
+}) => {
   if (!colums) {
     return <SkeletonHorizontalBarChar length={4} />;
   }
@@ -49,7 +42,17 @@ export const HorizontalChartBar: React.FC<Props> = ({colums, labelSpacing = 50})
   const chartHeight = colums.length * barHeight;
 
   return (
-    <ChartContainer config={chartConfig}>
+    <ChartContainer
+      config={{
+        desktop: {
+          label: "Desktop",
+          color: colorVariants[variant],
+        },
+        label: {
+          color: "var(--background)",
+        },
+      }}
+    >
       <div style={{width: "100%", height: `${chartHeight}px`}}>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -75,7 +78,7 @@ export const HorizontalChartBar: React.FC<Props> = ({colums, labelSpacing = 50})
             />
 
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey="data" fill="var(--primary)" radius={2}>
+            <Bar dataKey="data" fill={colorVariants[variant]} radius={2}>
               <LabelList
                 dataKey="data"
                 position="right"

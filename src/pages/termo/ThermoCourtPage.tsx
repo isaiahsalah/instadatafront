@@ -112,47 +112,89 @@ const ThermoCourtPage = () => {
         cell: (info) => info.getValue() as string,
       },
       {
-        accessorKey: "monday",
+        accessorFn: (row) => parseInt(row.monday, 10),
         header: "Lun.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "tuesday",
+        accessorFn: (row) => parseInt(row.tuesday, 10),
         header: "Mar.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "wednesday",
+        accessorFn: (row) => parseInt(row.wednesday, 10),
         header: "Mie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "thursday",
+        accessorFn: (row) => parseInt(row.thursday, 10),
         header: "Jue.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
-        accessorKey: "friday",
+        accessorFn: (row) => parseInt(row.friday, 10),
         header: "Vie.",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
 
       {
         accessorKey: "weight",
         header: "Peso",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
       {
         accessorKey: "jaba",
         header: "Jaba",
         cell: (info) =>
-          parseFloat(info.getValue() as string) ? parseFloat(info.getValue() as string) : null,
+          info.getValue() ? (
+            <Badge variant={"secondary"}>{info.getValue() as string}</Badge>
+          ) : (
+            <Badge variant={"outline"} className="text-muted-foreground">
+              -
+            </Badge>
+          ),
       },
     ];
   }, [corteA || corteB]);
@@ -178,7 +220,7 @@ const ThermoCourtPage = () => {
 
             <Separator />
           </div>
-          <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} />
+          <HorizontalChartBar colums={corteChartDataB} labelSpacing={250} variant={"chart5"} />
         </CardContent>
       </Card>
 
